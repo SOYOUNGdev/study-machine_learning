@@ -1,3 +1,20 @@
+### 데이터 전처리
+
+#### StandardScaler()
+- 데이터의 평균을 0, 분산을 1이 되도록, 표준 정규분포를 따르게 하는 스케일링
+- ±1.96을 벗어나면 이상치로 판단한다.
+- <code>from sklearn.preprocessing import StandardScaler</code>
+
+#### MinMaxScaler()
+- 데이터가 0~1 사이에 위치하도록 최소값은 0, 최대값을 1로 변환한다.
+- 서로 다른 단위의 feature끼리 비교가 가능해진다.
+- <code>from sklearn.preprocessing import MinMaxScaler</code>
+
+#### MaxAbsScaler()
+- 모든 값을 -1~1 사이에 위치하도록, 절대값의 최소값은 0, 최대값은 1이 되도록 변환한다.
+- 양의 방향에 대한 단위뿐 아니라 음의 방향에 대한 단위까지 스케일링하고자 할 때 사용한다.
+- <code>from sklearn.preprocessing import MaxAbsScaler</code>
+---
 ### AI (Artificial Intelligence)
 <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/0df245ff-4235-4434-a411-d2052a9ca629" width="800px">
 
@@ -98,3 +115,40 @@
 - 모델이 얼마나 잘 예측했는지를 "정확도"라는 평가 지표로 평가할 때 사용한다.
 - y_test: 실제 정답
 - predict(X_test): 예측한 정답
+---
+#### 결정 트리 (Decision Tree)
+- 매우 쉽고 유연하게 적용될 수 있는 알고리즘으로서 데이터의 스케일링, 정규화 등의 데이터 전처리의 의존도가 매우 적다.
+- 학습을 통해 데이터에 있는 규칙을 자동으로 찾아내서 Tree 기반의 분류 규칙을 만든다.
+- 각 특성이 개별적으로 처리되어 데이터를 분할하는데 데이터 스케일의 영향을 받지 않으므로 결정 트리에서는 정규화나 표준화 같은 전처리 과정이 필요없다.
+- 영향을 가장 많이 미치는 feature를 찾아낼 수도 있다.
+- 예측 성능을 계속해서 향상시키면 복잡한 규칙 구조를 가지기 때문에 <sub>※</sub>과적합(Overfitting)이 발생해서 예측 성능이 저하될 수도 있다.
+- 가장 상위 노드를 "루트 노드"라고 하며, 나머지 분기점을 "서브 노드", 결정된 분류값 노드를 "리프 노드"라고 한다.
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/17487898-7ca2-4b7d-a465-f98a973ef7fc" width="550px" style="margin: 20px 0 20px 20px">
+
+- 복잡도를 감소시키는 것이 주목적이며, 정보의 복잡도를 불순도(Impurity)라고 한다.
+- 이를 수치화한 값으로 지니 계수(Gini coeficient)가 있다.
+- 클래스가 섞이지 않고 분류가 잘 되었다면, 불순도 낮다.
+- 클래스가 많이 섞여있고 분류가 잘 안되었다면, 불순도 높다.
+- 통계적 분산 정도를 정량화하여 표현한 값이고, 0과 1사이의 값을 가진다.
+- 지니 계수가 낮을 수록 분류가 잘 된 것이다.
+---
+<sub>※ 과적합이란, 학습 데이터를 과하게 학습시켜서 실제 데이터에서는 오차가 오히려 증가하는 현상이다.</sub>  
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/a0ec0635-1c0d-41de-8404-f095f1a888c0" width="350px" style="margin-left: -10px">
+
+#### Graphviz
+- 결정트리 모델을 시각화할 수 있다.
+- https://graphviz.org/download/
+  graphviz-9.0.0 (64-bit) EXE installer [sha256]
+
+#### Feature별 중요도
+**각 feature가 분류를 나누는 데에 얼마나 큰 영향을 미쳤는지를 표기하는 척도이다.**
+- feature_importances_
+- 분류를 결정하는 데에 얼만큼 기여했는지를 feature별로 수치를 리턴해준다.
+
+#### 결정 트리의 과적합
+- 위에서 알아낸 것처럼 petal length, petal width, 2개의 feature만으로도 분류가 가능하기 때문에, 2차원 산점도를 통해 시각화 할 수 있다.
+- 마지막까지 노드가 분리되었기 때문에 과적합이 발생했을 가능성이 있고, 이를 <sub>※</sub>하이퍼 파라미터 튜닝을 통해 해결할 수 있다.
+
+<sub>※ 하이퍼 파라미터란, 최적의 훈련 모델을 구현하기 위해 알고리즘의 수치를 조정할 수 있는 변수를 의미한다.</sub>
