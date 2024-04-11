@@ -200,9 +200,105 @@ GridSearchCV
 - cv: 폴드 세트 개수
 - refit: 전달한 모델 객체에 최적의 하이퍼 파라미터로 적용하고자 할 때
 - return_train_score: 교차 검증 점수를 가져올 지에 대해 True 또는 False를 전달한다.
+---
+### 분류 (Classification) 성능 평가 지표
 
+#### 정확도 (Accuracy)
+- 직관적으로 모델 예측 성능을 나타낼 수 있다.
+- 2진 분류일 경우 데이터 구성에 따라 타겟 데이터 분포가 불균형하다면, 정확도 한 가지만으로는 적합한 성능 평가 지표가 될 수 없다.
+- 강아지와 고양이 모두 무조건 생존으로 예측하는 모델이 있다고 가정한다.
+  생존한 강아지 80마리와 사망한 고양이 20마리를 테스트하면, 정확도는 80%이다.
+  이 모델을 사용하면, 사망한 강아지 혹은 고양이를 절대 예측할 수 없다.
 
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/35f86dec-9fa6-4300-918f-7362f12f53b0" width="400px">
 
+#### 오차 행렬 (Confusion Matrix)
+- 학습된 분류 모델이 예측을 수행하면서 얼마나 예측에 오류가 있는지도 함께 있는지도 함께 보여주는 지표이다.
+- 데이터가 한 곳으로 치우친 것도 확인할 수 있으며, TP, TN, FP, FN 4가지로 구성되어 있다.
+- 오차 행렬로 분류 성능 평가 지표의 모든 것을 구할 수 있다(정확도, 정밀도, 재현율, F1 Score, ROC AUC).
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/3fc84394-86db-4839-8b06-08a1d9ab89b6" width="600px">  
+
+1. TN: 예측한 값은 음성이고, 실제 값도 음성일 때 (맞춤) 
+2. FP: 예측한 값은 양성이고, 실제 값은 음성일 때 (틀림)
+3. FN: 예측한 값은 음성이고, 실제 값은 양성일 때 (틀림)
+4. TP: 예측한 값은 양성이고, 실제 값도 양성일 때 (맞춤)
+
+- 위 강아지와 고양이의 생존률 예측 모델의 오차 행렬은 다음과 같이 나온다.
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/6cf9e06f-269a-47ae-8f8f-417235e332cc" width="600px">
+
+- 100마리 전부 생존(음성, Negative)으로 예측했으며, 그 중 80마리는 실제 음성이고, 나머지 20마리는 실제 양성이기 때문이다.
+- 보통 2진 분류일 경우 음성과 양성을 구분하는 의료학, 연구분야 등에서 많이 사용되며, 두 가지 상황으로 나눌 수 있다.
+> 1. 질병이나 이상이 없는데도 양성으로 오진하는 것을 방지하기 위해
+>> - 특이도(Specificity): 정상을 정상으로 진단하는 비율(▲TN)
+>> - 재현율(Recall)이 낮아지고 정밀도(Precision)가 높아질 수 있다.
+> 2. 암 진단에서 양성인 환자를 놓치지 않고 최대한 많이 식별하기 위해
+>> - 민감도(Sensitivity): 질병이 있는 사람을 질병이 있다고 진단하는 비율(▲TP)
+>> - 재현율(Recall)이 높아지고 정밀도(Precision)가 낮아질 수 있다.
+
+- 1.의 경우 Positive보다는 Negative 예측 정확도를 높일 것이다.
+  ▲TN, ▼TP, 또한, Positive로 예측하는 경우가 매우 작기 때문에, ▼FP
+- 2.의 경우 Negative보다는 Positive 예측 정확도를 높일 것이다.
+  ▲TP, ▼TN, 또한, Negative로 예측하는 경우가 매우 작기 때문에, ▼FN
+- 🚩결과적으로 정확한 판단이 아님에도 불구하고 정확도가 매우 높게 나타나는, 수치적인 판단 오류를 해결하기 위해서는 특이도와 민감도를 잘 조절해야한다.
+
+#### 정밀도 (Precision)
+- 예측을 Positive로 한 대상 중, 예측과 실제 값이 Positive로 일치한 데이터의 비율을 뜻한다.
+- ▲TP, ▼FP일 경우 정밀도가 상승한다.
+- precision_score()를 사용하여 정밀도를 구할 수 있다.
+
+#### 재현율 (Recall)
+- 실제 값이 Positive인 대상 중, 얼마나 놓치지 않고 Positive로 예측했는가의 비율을 뜻한다.
+- ▲TP, ▼FN일 경우 재현율이 상승한다.
+- recall_score()을 사용하여 재현율을 구할 수 있다.
+
+#### 정밀도와 재현율의 트레이드 오프 (Trade-off)
+- 분류 시, 결정 임계값(Threshold)을 조정해서 정밀도 또는 재현율의 수치를 높일 수 있다.
+
+> 가정: 구급대원 AI가 교통사고 현장에서 피해자를 병원으로 이송해야할지 판단해야 하는 시나리오.
+> - Dead (Positive): 피해자가 이미 사망했을 경우
+> - Alive (Negative): 피해자가 아직 살아있을 경우
+
+> - TP: 모델이 Dead를 Dead로 올바르게 분류한 경우
+> - FP: 모델이 Alive를 Dead로 잘못 분류한 경우 (error I)
+> - TN: 모델이 Alive를 Alive로 올바르게 분류한 경우
+> - FN: 모델이 Dead를 Alive로 잘못 분류한 경우 (error II)
+
+> - error I의 비용(FP)은 error II의 비용(FN)보다 훨씬 더 나쁘다! ▼FP, ▼error I
+> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/4acd8f20-2649-46e2-b1d4-c2eeb1ee6e5b" width="500px">
+
+> - 정밀도 (Precision): 모델이 Dead로 예측한 환자 중에서 실제로 Dead인 환자의 비율을 나타낸다. 즉, 양성으로 예측한 결과 중 얼마나 많은 것이 진짜 양성인지 측정한다.  
+> - 재현율 (Recall): 실제 Dead 피해자 중에서 모델이 Dead로 정확하게 예측한 피해자의 비율을 나타낸다. 즉, 모델이 얼마나 많은 Dead 피해자를 "놓치지 않고" 감지했는지 측정한다.
+
+> - 이는 정밀도를 높여야 하며, Threshold(임계값)을 높여서(오른쪽으로 이동) FP를 낮추고(▲정밀도), FN을 높여야 한다(▼재현율).
+> - 즉, Negative(Alive, 음성)로 예측할 확률이 높아져야 생명을 구할 확률이 높아지고, 이를 위해 Threshold value(임계값)을 높여주는 것이다.
+> - 위의 시나리오처럼 한 쪽의 수치를 강제로 높이면 다른 한 쪽의 수치는 떨어지며,  
+    이를 정밀도와 재현율의 "트레이드 오프"라고 한다.
+> - 임계치가 높아지면 정밀도가 높아진다. 반대로 임계치가 낮아지면 재현율이 높아진다.
+
+#### F1 Score
+- 2진 분류 모델의 성능을 평가하는 지표 중 하나이다.
+- 정밀도(Precision)와 재현율(Recall)의 조화 평균으로 계산되는 성능 측정 지표이다.
+- 정확도(Accuracy)와 같이 전체 성능에 대한 지표가 아닌 타겟 데이터별 성능을 자세히 분석하는 평가 지표이다.
+- 정밀도(Precision)와 재현율(Recall), 두 개의 평가 지표를 모두 고려하여 예측 성능을 평가하기 때문에 두 지표의 평균치를 구하는 조화 평균을 사용하여 조금 더 정확하게 모델의 예측 성능을 평가할 수 있다.
+- 텍스트 분류, 정보 검색, 암 진단 등에서 사용되는 모델의 성능을 평가할 수 있다.
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/99803f23-bbc3-4e4f-b89e-865986c1acb6" width="600px">
+
+- F1 Score는 0~1까지 점수를 매길 수 있으며, 0에 가까울 수록 정밀도와 재현율 모두 낮다는 뜻이다.
+
+#### ROC Curve, AUC
+- ROC(Receiver Operating Characteristic)는 수신기 동작 특성이라는 뜻이고, 이러한 이름이 붙은 이유는 2차 세계대전 때 무선 기기 성능 평가 때 사용되었기 때문이다.
+- FPR이 변할 때 TPR이 어떻게 변하는지를 나타내는 곡선이며, FPR이 급격히 떨어지더라도 TPR은 천천히 떨어지는 것이 좋은 성능을 가진 모델로 판단한다.
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/98da8370-01ef-4e6f-8de7-2c2959be4b7d" width="400px">
+
+- AUC(Area Under the Curve)는 ROC 곡선 밑의 면적을 구한 것으로서, 일반적으로 1에 가까울수록 좋은 수치이다.
+- ROC Curve가 축에 붙을수록(좌상단 모서리) 좋은 성능을 나타내는 것이며, 높이와 밑변이 1인 사각형으로 가정했을 경우 ROC Curve가 축에 붙을수록 AUC 면적이 넓어지며 1에 가까워진다.
+- 모델이 양성과 음성을 얼마나 잘 분류하는지 시각화 할 수 있다.
+- 보통 F1 Score가 0.7이상일 경우 좋은 모델이라고 간주한다.
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/f66d82ad-cabc-4dc5-8feb-ef0e6ee2c003" width="230px">
 
 
 
