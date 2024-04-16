@@ -502,6 +502,23 @@ C가 클 수록 loss function에서 오차항인 ξ<sub>i</sub>의 영향력이 
 <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/86f086df-5796-4cbc-a20a-e1bec19982c5)" width="500px">
 
 ---
+### K-최근접 이웃 알고리즘 (K-Nearest Neighbor, KNN)
+- 임의의 데이터가 주어지면 그 주변(이웃)의 데이터를 살펴본 뒤 더 많은 데이터가 포함되어 있는 범주로 분류하는 방식이다.
+- 가장 간단한 머신러닝 알고리즘으로서, 직관적이고 나름 성능도 괜찮다.
+- K를 어떻게 정하는지에 따라서 결과값이 바뀔 수 있다. K는 임의의 데이터가 주어졌을 때 가까운 이웃들의 개수이고 기본값은 5이다.
+- K는 가장 가까운 5개의 이웃 데이터를 기반으로 분류하며, 일반적으로 홀수를 사용한다. 짝수일 경우 동점이 되어 하나의 결과를 도출할 수 없기 때문이다.
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/0ee37a70-866d-48bd-9ee1-6539bfb0cb80" width="400px"> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/2da68bd6-634e-4577-8b21-f7fc583569fa" width="400px">
+
+- KNN은 fit을 통해 훈련시키면, 학습하지 않고 저장만 해놓는다. 따라서 이러한 모델을 Lazy Model이라고 부른다.
+- 새로운 데이터가 주어지면 그제서야 이웃 데이터를 보고 분류해나간다. 따라서 사전 모델링이 필요없는 real-time 예측이 이루어진다.
+
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/943872cb-b50d-48ab-bb39-f338f042eb33" width="350px" style="margin-left: 20px;">
+
+- 데이터와 데이터 사이의 거리를 구해야 더 가까운 클래스로 분류할 수 있으며,  
+  이는 유클리드 거리(Euclidean Distance)방식과 맨해튼 거리(Manhattan Distance)방식이 있다.
+
+---
 ### 앙상블 학습 (Ensemble Learning)
 - 어떤 데이터의 값을 예측한다고 할 때, 하나의 모델만 가지고 결과를 도출할 수도 있지만, 여러개의 모델을 조화롭게 학습시켜 그 모델들의 예측 결과들을 이용한다면, 더 정확한 예측값을 구할 수 있다.
 - 여러 개의 분류기를 생성하고 그 예측을 결합하여 1개의 분류기를 사용할 때 보다 더 정확하고 신뢰성 높은 예측을 도출하는 기법이다.
