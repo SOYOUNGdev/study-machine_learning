@@ -14,6 +14,12 @@
 - 모든 값을 -1~1 사이에 위치하도록, 절대값의 최소값은 0, 최대값은 1이 되도록 변환한다.
 - 양의 방향에 대한 단위뿐 아니라 음의 방향에 대한 단위까지 스케일링하고자 할 때 사용한다.
 - <code>from sklearn.preprocessing import MaxAbsScaler</code>
+
+#### 로그변환 (Log transformation)
+- 왜도와 첨도를 가진 변수를 정규분포에 가깝게 만들어준다. 큰 수치를 같은 비율의 작은 수치로 변환한다.
+- <code>np.log1p(df['col'])</code>
+- 원래 값으로 전환하고자 할 때 지수를 취해준다.
+- <code>np.expm1(df['col'])</code>
 ---
 ### AI (Artificial Intelligence)
 <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/0df245ff-4235-4434-a411-d2052a9ca629" width="800px">
