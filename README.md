@@ -555,6 +555,81 @@ C가 클 수록 loss function에서 오차항인 ξ<sub>i</sub>의 영향력이 
 <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/f5a5e019-eb59-44df-ab7d-e78ae330a4f3" width="600px" style="margin-top: 20px;">
 
 > 1. Adaboost(Adaptive boosting)
+> - 부스팅에서 가장 기본 기법이며, 결정 트리와 비슷한 알고리즘을 사용하지만 뻗어나가지(tree) 않고 하나의 조건식만 사용(stump)하여 결정한다.
+> - 여러 개의 stump로 구성되어 있으며, 이를 Forest of stumps라고 한다.
+> - stump는 조건식 한 개와 두 갈래의 참, 거짓 리프 노드가 있는 형태이다.
+> - tree와 다르게, stump는 단 하나의 질문으로 데이터를 분류해야하기 때문에 약한 학습기(weak learner)이다.  
+> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/a40e8928-69ff-4458-a3d9-a943f2db954d" width="400px">  
+> - 결과에 미치는 영향이 큰 stump를 Amount of Say가 높다(가중치가 높다)고 한다.
+> - 각 stump의 error는 다음 stump의 결과에 영향을 미치고 줄줄이 마지막 stump까지 영향을 미친다.
+> - 모든 stump의 Amount of Say를 수치로 구한 뒤 합치면, Total Amount of Say가 나오고 이를 통해 최종 분류가 된다.
+> - 하나의 stump는 약한 학습기이지만 여러 stump를 모으면 강한 학습기가 된다.  
+>  
+> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/9812d89a-6f18-4138-8df0-76903a484aab" width="300px">  
+>
+> - Total Error가 0이면 항상 올바른 분류를 한다는 뜻이고, 1이면 항상 반대로 분류를 한다는 뜻이다.
+> - 만약 Total Error가 0.5라면 Amount of Say는 0이고, 이는 확률이 반반이기 때문에 분류기로서 분류결과를 랜덤으로 판단하는 것과 같다.
+
 > 2. GBM(Gradient Boost Machine)
+> - Adaboost와 유사하지만, 에러를 최소화하기 위해 가중치를 업데이트할 때 경사 하강법(Gradient Descent)을 이용한다.
+> - GBM은 과적합에도 강하고 뛰어난 성능을 보이지만, 병렬 처리가 되지 않아서 수행 시간이 오래 걸린다는 단점이 있다.
+> - 경사 하강법이란, 오류를 최소화하기 위해 Loss function의 최소값까지 점차 하강하면서 찾아나가는 기법이다.
+> - 모델 A를 통해 y를 예측하고 남은 잔차(residual, 에러의 비율)를 다시 B라는 모델을 통해 예측하고 A + B모델을 통해 y를 예측하는 방식이다.
+> - 잔차를 계속 줄여나가며, 훈련 데이터 세트를 잘 예측하는 모델을 만들 수 있게 된다.
+> - 잔차를 계속 줄이다보면 복잡도가 증가하여 과적합이 일어날 수도 있다는 단점이 있다.  
+>  
+> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/854c5b2c-6969-47ca-82e3-1636cd31d491" width="700px">  
+>  
+
 > 3. XGBoost(eXtra Gradient Boost)
+> 트리 기반의 앙상블 학습에서 가장 각광받고 있는 알고리즘 중 하나이며, 분류에 있어서 일반적으로 다른 머신러닝보다 뛰어난 예측 성능을 나타낸다.
+> - GBM에 기반하고 있지만 병렬 CPU 환경에서 병렬 학습이 가능하기 때문에 기존 GBM보다 빠르게 학습을 완료할 수 있다.
+> - 하이퍼 파라미터를 조정하여 분할 깊이를 변경할 수 있지만,tree pruning(가지치기)으로 더 이상 긍정 이득이 없는 분할을 가지치기해서 분할 수를 줄이는 추가적인 장점을 가지고 있다.
+>
+> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/60f0956f-8876-4ea6-b7d7-a47675e3f36d" width="900px">
+>
+> - 조기 중간 기능(Early Stopping)은 특정 반복 횟수만큼 더 이상 loss function이 감소하지 않으면 수행을 종료할 수 있다. 학습 시간을 단축시킬 수 있으며, 최적화 튜닝 시 적절하게 사용 가능하다. 하지만, 반복 횟수를 너무 낮게 설정하면, 최적화 전에 학습이 종료될 수 있기 때문에 조심해야 한다.  
+>
+> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/3532592b-134a-4799-913f-ebff9434c0ba" width="400px">
 > 4. LightGBM(Light Gradient Boosting Machine)
+
+
+---
+#### 보팅 (Voting)
+**VotingClassifier(n_estimators, voting)**
+- n_estimators: 추가할 모델 객체를 list형태로 전달한다. 각 모델은 튜플 형태인 ('key', model)로 작성한다.
+- voting: 'soft', 'hard' 둘 중 선택한다(default: 'hard')
+
+#### 배깅(Bagging) - 랜덤 포레스트(Random Forest)
+**RandomForestClassifier(n_estimators, min_samples_split, min_samples_leaf, n_jobs)**
+
+- n_estimators: 생성할 tree(모델)의 개수를 작성한다(default: 50)
+
+#### 부스팅(Boosting)
+**AdaBoostClassifier(base_estimators, n_estimators, learning_rate)**
+- base_estimators: 학습에 사용하는 알고리즘을 선택한다(default: DecisionTreeClassifier(max_depth=1)).
+- n_estimators: 생성할 약한 학습기의 개수를 지정한다(default: 50).
+- learning_rate: 학습을 진행할 때마다 적용하는 학습률(0~1사이의 값), 약한 학습기가 순차적으로 오류값을 보정해나갈 때 적용하는 계수이며, 낮은 만큼 최소 손실값을 찾아 예측성능이 높아질 수 있지만, 그 만큼 많은 수의 트리가 필요하고 시간이 많이 소요된다(default: 1)
+
+#### 부스팅(Boosting) - GBM(Gradient Boosting Machine)
+**GradientBoostingClassifier(n_estimators, loss, learning_rate,, subsample)**
+- n_estimators: 약한 학습기의 개수이며, 많을수록 일정 수준까지는 좋아지지만 그만큼 시간도 오래걸리고 과적합의 위험이 있다.
+- loss: 경사 하강법에서 사용할 loss function을 지정한다(default: 'log_loss'). 만약 지수적 감쇠를 사용하고자 한다면, 'exponential'을 지정한다.
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/416cd830-9af3-44cd-ad40-577122d8b00e">
+<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/12766191-e23f-4c43-9f90-1bfe9f5be2cd">
+
+- learning_rate: 학습을 진행할 때마다 적용하는 학습률(0~1사이의 값), 약한 학습기가 순차적으로 오류값을 보정해나갈 때 적용하는 계수이며, 낮은 만큼 최소 손실값을 찾아 예측성능이 높아질 수 있지만, 그 만큼 많은 수의 트리가 필요하고 시간이 많이 소요된다(default: 1)
+- subsample: 학습에 사용하는 데이터의 샘플링 비율이다.(default: 1(100%)). 과적합 방지 시 1보다 작은 값으로 설정한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
