@@ -591,8 +591,27 @@ C가 클 수록 loss function에서 오차항인 ξ<sub>i</sub>의 영향력이 
 > - 조기 중간 기능(Early Stopping)은 특정 반복 횟수만큼 더 이상 loss function이 감소하지 않으면 수행을 종료할 수 있다. 학습 시간을 단축시킬 수 있으며, 최적화 튜닝 시 적절하게 사용 가능하다. 하지만, 반복 횟수를 너무 낮게 설정하면, 최적화 전에 학습이 종료될 수 있기 때문에 조심해야 한다.  
 >
 > <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/3532592b-134a-4799-913f-ebff9434c0ba" width="400px">
-> 4. LightGBM(Light Gradient Boosting Machine)
 
+>
+> 4. LightGBM(Light Gradient Boosting Machine)
+> - XGBoost의 향상된 버전으로서 결정트리 알고리즘을 기반으로 순위 지정, 분류 및 기타 여러 기계 학습 작업에 사용할 수 있다.
+> - 기존 부스팅 방식과 마찬가지로 각각의 새로운 분류기각 이전 트리의 잔차를 조정해서 모델이 향상되는 방식으로 결합되고, 마지막으로 추가된 트리는 각 단계의 결과를 집계하여 강력한 분류기가 될 수 있다.
+> - XGBoost와 달리 GOSS 알고리즘을 사용해서 수직으로 트리를 성장시킨다. 즉, 다른 알고리즘은 레벨(depth)단위로 성장시키지만, LightGBM은 리프(leaf) 단위로 성장시킨다.
+> - 인코딩을 따로 할 필요 없이 카테고리형 feature를 최적으로 변환하고 이에 따른 노드 분할을 수행한다.  
+>   astype('category')로 변환할 수 있으며, 이는 다른 다양한 인코딩 방식보다 월등히 우수하다.  
+> - GOSS 논문  
+>   https://proceedings.neurips.cc/paper_files/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf  
+> 
+> <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/39adb6db-7e93-4a12-85aa-053152df303c" width="600px">
+>  
+> <div style="display: flex;">
+    <div>
+        <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/ba31b1e3-8fed-48d6-bb6f-0b2d35854b3b" width="400"> 
+    </div>
+    <div>
+        <img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/0b1289de-fda9-4872-a3af-a478d2523161" width="300">  
+    </div>
+</div>
 
 ---
 #### 보팅 (Voting)
@@ -621,8 +640,14 @@ C가 클 수록 loss function에서 오차항인 ξ<sub>i</sub>의 영향력이 
 - learning_rate: 학습을 진행할 때마다 적용하는 학습률(0~1사이의 값), 약한 학습기가 순차적으로 오류값을 보정해나갈 때 적용하는 계수이며, 낮은 만큼 최소 손실값을 찾아 예측성능이 높아질 수 있지만, 그 만큼 많은 수의 트리가 필요하고 시간이 많이 소요된다(default: 1)
 - subsample: 학습에 사용하는 데이터의 샘플링 비율이다.(default: 1(100%)). 과적합 방지 시 1보다 작은 값으로 설정한다.
 
+#### 부스팅(Boosting) - XGBoost(eXtra Gradient Boost)
+**XGBClassifier(n_estimators, learning_rate, subsample, eval_set, early_stopping_rounds)**
+- eval_set: 예측 오류값을 줄일 수 있도록 반복하면서 학습이 진행되는데, 이 때 학습은 학습 데이터로 하고 예측 오류값 평가는 eval_set으로 지정된 검증 세트로 평가한다.
+- early_stopping_rounds: 지정한 횟수동안 오류가 개선되지 않으면 더 이상 학습은 진행하지 않는다.
 
-
+#### 부스팅(Boosting) - LightGBM(Light Gradient Boosting Machine)
+**LGBMClassifier(n_estimators, learning_rate, subsmaple, eval_set)**
+- n_estimators: default: 100
 
 
 
