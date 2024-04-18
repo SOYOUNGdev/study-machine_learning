@@ -648,13 +648,3 @@ C가 클 수록 loss function에서 오차항인 ξ<sub>i</sub>의 영향력이 
 #### 부스팅(Boosting) - LightGBM(Light Gradient Boosting Machine)
 **LGBMClassifier(n_estimators, learning_rate, subsmaple, eval_set)**
 - n_estimators: default: 100
-
-
-
-
-
-
-
-
-
-
