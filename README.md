@@ -1,149 +1,72 @@
-### 데이터 전처리
+<sub>파란색 글씨 클릭 시, 자세한 설명을 작성해놓은 페이지로 이동</sub>
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC">데이터 전처리</a>
 
 #### StandardScaler()
 - 데이터의 평균을 0, 분산을 1이 되도록, 표준 정규분포를 따르게 하는 스케일링
-- ±1.96을 벗어나면 이상치로 판단한다.
-- <code>from sklearn.preprocessing import StandardScaler</code>
 
 #### MinMaxScaler()
 - 데이터가 0~1 사이에 위치하도록 최소값은 0, 최대값을 1로 변환한다.
-- 서로 다른 단위의 feature끼리 비교가 가능해진다.
-- <code>from sklearn.preprocessing import MinMaxScaler</code>
 
 #### MaxAbsScaler()
 - 모든 값을 -1~1 사이에 위치하도록, 절대값의 최소값은 0, 최대값은 1이 되도록 변환한다.
-- 양의 방향에 대한 단위뿐 아니라 음의 방향에 대한 단위까지 스케일링하고자 할 때 사용한다.
-- <code>from sklearn.preprocessing import MaxAbsScaler</code>
 
 #### 로그변환 (Log transformation)
 - 왜도와 첨도를 가진 변수를 정규분포에 가깝게 만들어준다. 큰 수치를 같은 비율의 작은 수치로 변환한다.
-- <code>np.log1p(df['col'])</code>
-- 원래 값으로 전환하고자 할 때 지수를 취해준다.
-- <code>np.expm1(df['col'])</code>
 
 #### 언더 샘플링 (Under sampling)
 - 불균형한 데이터 세트에서 높은 비율을 차지하던 클래스의 데이터 수를 줄임으로써 데이터 불균형을 해소한다.
-- 학습에 사용되는 전체 데이터 수를 급격하게 감소시켜 오히려 성능이 떨어질 수 있다.
-
-<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/c84c1f91-f719-4bbf-94dc-56130290cb37" width="400px" style="margin-left: 20px;">
 
 #### 오버 샘플링 (Over sampling)
 - 불균형한 데이터 세트에서 낮은 비율 클래스의 데이터 수를 늘림으로써 데이터 불균형을 해소한다.
-- 오버 샘플링의 대표적인 방법에는 SMOTE(Synthetic Minority Over-sampling Technique)가 있다.
-
-<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/7e6008bc-d4a6-4e53-81d9-54efc59a09e1" width="400px" style="margin-left: 20px;">
 
 #### SMOTE (Synthetic Minority Over-sampling Technique)
 - 반드시 학습 데이터 세트만 오버 샘플링 해야 한다.
 - 검증 혹은 테스트 데이터 세트를 오버 샘플링하는 경우 원본 데이터가 아닌 데이터에서 검증되기 때문에 올바른 검증이 되지 않는다.
 - 낮은 비율 클래스 데이터들의 최근접 이웃을 이용하여 새로운 데이터를 생성한다.
-- 동일한 데이터를 복제하는 것은 의미가 없기 때문에 일정한 거리를 떨어진 위치에 데이터를 생성하기 위함이다.
-- 오버 샘플링을 하게 되면 양성으로 예측하는 비율이 높아지기 때문에 정밀도가 감소하고 재현율이 증가한다.
-- 오버 샘플링을 정확히 수행하기 위해서는 category 타입을 사용하는 것보다 직접 인코딩해주는 것이 좋다.
-
-<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/37f9f21c-1e19-4c35-9e86-cf21a84d6418" width="650px">
 
 ---
-### AI (Artificial Intelligence)
-<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/0df245ff-4235-4434-a411-d2052a9ca629" width="800px">
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/AI#ai-artificial-intelligence">AI (Artificial Intelligence)</a>
 
 #### Rule-base AI
 - 특정 상황을 이해하는 전문가가 직접 입력값(문제)과 특징을 전달(규칙)하여 출력값(정답)을 내보내는 알고리즘이다.
-- 광범위한 데이터 수집, 정리 또는 교육이 필요하지 않으므로 전문가의 기존 지식을 기반으로 비지니스 규칙을 정의하여 구현 복잡성을 줄일 수 있다.
-- 의사 결정 프로세스가 명시적인 "if-then" 사전 정의 규칙에 의존하므로 높은 투명성을 제공한다.
-- 본질적으로 정적이며 유연성이 없기 때문에, 사전 정의된 규칙을 수동으로 조정하여 변화나 진화하는 조건에만 적응할 수 있다.
-- 사전 정의된 규칙이 명확한 지침을 제공하지 않는 모호하거나 불확실한 상황에 직면할 때 어려움을 겪을 수 있다.
-- 미리 정의된 기준에 의존하면, 전문가 개인의 편견이 들어갈 수 밖에 없고, 이로 인해 미묘한 행동을 설명하지 못할 수 있으며 잠재적으로 불공평하거나 부정확한 평가로 이어질 수 있다.
 
 #### Machine Learning AI
 - 데이터를 기반으로 규칙성(패턴)을 학습하여 결과를 추론하는 알고리즘이다.
-- 현실 세계의 패턴을 분석하여 개발자가 직접 코드를 작성하는 것이 어려웠으나 머신러닝을 이용해서 해결할 수 있다.
-
-- <sub>※</sub>데이터 마이닝, 음성 인식(언어 구분), 영상 인식(이미지 판별), 자연어 처리(번역, 문맥 찾기)에서 머신러닝이 적용된다.
-- <sub>※ 데이터 마이닝이란, 대규모 데이터 안에서 체계적이고 자동적으로 통계적 규칙이나 짜임을 분석하여 가치있는 정보를 빼내는 과정이다.</sub>
-- 데이터의 패턴을 학습하여 이를 통해 예측 등을 수행할 수 있다.
-
-1. 지도 학습 (Supervised Learning)
-   
+  
+1. 지도 학습 (Supervised Learning)   
 > 입력값(문제)과 출력값(정답)을 전달하면, 알아서 특징을 직접 추출하는 방식이다.  
-> 다른 입력값(문제)과 동일한 출력값(정답)을 전달하면 새로운 특징을 알아서 추출한다.  
+> 다른 입력값(문제)과 동일한 출력값(정답)을 전달하면 새로운 특징을 알아서 추출한다.
 
-> 문제(Feature)와 답(Target, Label)을 주는 것이다.  
-> - 분류 (코로나 양성/음성, 사기 번호/일반 번호 등 단일 값 예측)  
-> - 회귀 (1년 뒤의 매출액, 내일 주식 가격 등 연속 값 예측)  
-
-2. 비지도 학습 (Unsupervised Learning)
-   
+2. 비지도 학습 (Unsupervised Learning)   
 > 입력값(문제)만 전달하고 정답 없이 특징만 추출하는 학습이다.  
 > 추출한 특징에 대해 AI가 출력값(정답)을 부여하여 입력값(문제)은 출력값(정답)이라는 것을 알아낸다.  
 
-> 문제(Feature)를 주고 답은 주지 않는 것이다.  
-> - 군집화 (클러스터링, 비슷한 문제를 분석하여 편을 나누어 각 편으로 모으는 것)  
-> - 차원 축소 (문제의 개수를 압축(축소)하여 함축된 의미를 찾아내는 것)  
-
 3. 강화 학습 (Reinforcement Learning)
    
-> https://kr.mathworks.com/discovery/reinforcement-learning.html
-
-#### Machine Learning의 단점
-- 데이터에 의존적이다 (Garbage In, Garbage Out), 데이터가 안좋으면 결과도 안좋을 수 밖에 없다.
-- 학습 데이터로 잘 만들어진 로직을 가진 모델일지라도 실제 데이터 적용 시 정확한 결과가 나오지 않을 수 있다.
-- 머신러닝 학습을 통해 로직이 생기면, 나온 결과가 어떻게 이렇게 나왔는지에 대한 분석이 쉽지 않다(블랙박스).
-- 데이터를 넣으면 원하는 것처럼 좋은 결과를 얻기란 쉽지 않다.
-
-#### R vs Python
-
-- R
-  
-> 개발 언어에 익숙하지 않지만 통계 분석에 능한 현업 사용자일 경우  
-> 오랜 기간동안 쌓인 다양하고 많은 통계 패키지  
-
-- Python
-  
-> 직관적인 문법, 객체지향 함수형 프로그래밍 언어, 다양한 라이브러리  
-> 다양한 영역 (운영체제, 서버, 네트워크 등)으로 연계 및 상용화하기 좋음  
-
-### 머신러닝과 딥러닝은 R보다는 "파이썬"을 사용하자!
-
 ---
-### 분류 (Classifier)
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/AI#%EB%B6%84%EB%A5%98-classifier">분류 (Classifier)</a>
 - 대표적인 지도학습 방법 중 하나이며, 다양한 문제와 정답을 학습한 뒤 별도의 테스트에서 정답을 예측한다.
-- 주어진 문제와 정답을 먼저 학습한 뒤 새로운 문제에 대한 정답을 예측하는 방식이다.
-- 이진 분류 (Binary Classification)의 경우 정답은 0(음성, Negative)과 1(양성, Positive)과 같이 True, False값을 가진다.
-- 다중 분류 (Multiclass Classification)는 정답이 가질 수 있는 값은 3개 이상이다.(예: 0, 1, 2, 3).
 
 #### 피처 (Feature)
-- 데이터 세트의 일반 컬럼이며, 2차원 이상의 다차원 데이터까지 통틀어 피처라고 한다.
 - 타겟을 제외한 나머지 속성을 의미한다.
 #### 레이블(Label), 클래스(Class), 타겟(Target), 결정(Decision)
 - 지도 학습 시, 데이터의 학습을 위해 주어지는 정답을 의미한다.
-- 지도 학습 중, 분류의 경우 이를 레이블 또는 클래스라고도 부른다.
 
-<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/661c184d-230a-4409-93c8-5fcf52146b03" width="600px" style="margin-left: 10px">
-
-### 분류 예측 프로세스
-<img src="https://github.com/SOYOUNGdev/study-machine_learning/assets/115638411/6861fdf6-64a5-4229-a212-a4d402f09b5f">
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/AI#%EB%B6%84%EB%A5%98-%EC%98%88%EC%B8%A1-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4">분류 예측 프로세스</a>
 
 #### 데이터 세트 분리
 **train_test_split(feature, target, test_size, random_state)**
 
 - 학습 데이터 세트와 테스트 데이터 세트를 분리해준다.
-- feature: 전체 데이터 세트 중 feature
-- target: 전체 데이터 세트 중 target
-- test_size: 테스트 세트의 비율 (0 ~ 1)
-- random_state: 매번 동일한 결과를 원할 때, 원하는 seed(기준점)를 작성한다.
 
 #### 모델 학습
 **fit(train_feature, train_target)**
 - 모델을 학습시킬 때 사용한다.
-- train_feature: 훈련 데이터 세트 중 feature
-- train_target: 훈련 데이터 세트 중 target
 
 #### 평가
 **accuracy_score(y_test, predict(X_test))**
 - 모델이 얼마나 잘 예측했는지를 "정확도"라는 평가 지표로 평가할 때 사용한다.
-- y_test: 실제 정답
-- predict(X_test): 예측한 정답
+
 ---
 ### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Model#%EA%B2%B0%EC%A0%95-%ED%8A%B8%EB%A6%AC-decision-tree">결정 트리 (Decision Tree)</a>
 - 매우 쉽고 유연하게 적용될 수 있는 알고리즘으로서 데이터의 스케일링, 정규화 등의 데이터 전처리의 의존도가 매우 적다.
