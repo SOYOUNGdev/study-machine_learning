@@ -648,3 +648,12 @@ C가 클 수록 loss function에서 오차항인 ξ<sub>i</sub>의 영향력이 
 #### 부스팅(Boosting) - LightGBM(Light Gradient Boosting Machine)
 **LGBMClassifier(n_estimators, learning_rate, subsmaple, eval_set)**
 - n_estimators: default: 100
+
+---
+<details>
+  <summary>회귀(Regressionn)</summary>
+      - 데이터가 평균과 같은 일정한 값으로 돌아가려는 경향을 이용한 통계학 기법이다.<br>  
+      - 여러 개의 독립 변수와 한 개의 종속 변수 간의 상관관계를 모델링하는 기법을 통칭한다.<br>    
+      - feature와 target 데이터 기반으로 학습하여 최적의 회귀 계수(W)를 찾는 것이 회귀의 목적이다.<br>     
+      <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)">더 자세히 보러가기</a>
+</details>
