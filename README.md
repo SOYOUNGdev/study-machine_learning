@@ -244,3 +244,6 @@
 - 미니 배치 경사 하강법은 미니 배치 단위로 경사 하강법을 수행하는 방법이다.
 </details>
 
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)#decision-tree-regression-%ED%9A%8C%EA%B7%80-%ED%8A%B8%EB%A6%AC">Decision Tree Regression (회귀 트리)</a>
+- 결정 트리와 결정 트리 기반의 앙상블 알고리즘은 분류뿐 아니라 회귀분석도 가능하다.
+- 분류와 유사하게 분할하며, 최종 분할 후 각 분할 영역에서 실제 데이터까지의 거리들의 평균 값으로 학습 및 예측을 수행한다.
