@@ -200,7 +200,7 @@
 >   astype('category')로 변환할 수 있으며, 이는 다른 다양한 인코딩 방식보다 월등히 우수하다.  
 
 ---
-#### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Model#%EB%B3%B4%ED%8C%85-voting">보팅 (Voting)</a>
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Model#%EB%B3%B4%ED%8C%85-voting">보팅 (Voting)</a>
 **VotingClassifier(n_estimators, voting)**
 - n_estimators: 추가할 모델 객체를 list형태로 전달한다. 각 모델은 튜플 형태인 ('key', model)로 작성한다.
 - voting: 'soft', 'hard' 둘 중 선택한다(default: 'hard')
@@ -209,34 +209,33 @@
 **RandomForestClassifier(n_estimators, min_samples_split, min_samples_leaf, n_jobs)**
 - n_estimators: 생성할 tree(모델)의 개수를 작성한다(default: 50)
 
-#### 부스팅(Boosting)
+#### 1. 부스팅(Boosting)
 **AdaBoostClassifier(base_estimators, n_estimators, learning_rate)**
 - base_estimators: 학습에 사용하는 알고리즘을 선택한다(default: DecisionTreeClassifier(max_depth=1)).
 - n_estimators: 생성할 약한 학습기의 개수를 지정한다(default: 50).
 - learning_rate: 학습을 진행할 때마다 적용하는 학습률(0~1사이의 값), 약한 학습기가 순차적으로 오류값을 보정해나갈 때 적용하는 계수이며, 낮은 만큼 최소 손실값을 찾아 예측성능이 높아질 수 있지만, 그 만큼 많은 수의 트리가 필요하고 시간이 많이 소요된다(default: 1)
 
-#### 부스팅(Boosting) - GBM(Gradient Boosting Machine)
+#### 2. 부스팅(Boosting) - GBM(Gradient Boosting Machine)
 **GradientBoostingClassifier(n_estimators, loss, learning_rate,, subsample)**
 - n_estimators: 약한 학습기의 개수이며, 많을수록 일정 수준까지는 좋아지지만 그만큼 시간도 오래걸리고 과적합의 위험이 있다.
 - loss: 경사 하강법에서 사용할 loss function을 지정한다(default: 'log_loss'). 만약 지수적 감쇠를 사용하고자 한다면, 'exponential'을 지정한다.
 - learning_rate: 학습을 진행할 때마다 적용하는 학습률(0~1사이의 값), 약한 학습기가 순차적으로 오류값을 보정해나갈 때 적용하는 계수이며, 낮은 만큼 최소 손실값을 찾아 예측성능이 높아질 수 있지만, 그 만큼 많은 수의 트리가 필요하고 시간이 많이 소요된다(default: 1)
 - subsample: 학습에 사용하는 데이터의 샘플링 비율이다.(default: 1(100%)). 과적합 방지 시 1보다 작은 값으로 설정한다.
 
-#### 부스팅(Boosting) - XGBoost(eXtra Gradient Boost)
+#### 3. 부스팅(Boosting) - XGBoost(eXtra Gradient Boost)
 **XGBClassifier(n_estimators, learning_rate, subsample, eval_set, early_stopping_rounds)**
 - eval_set: 예측 오류값을 줄일 수 있도록 반복하면서 학습이 진행되는데, 이 때 학습은 학습 데이터로 하고 예측 오류값 평가는 eval_set으로 지정된 검증 세트로 평가한다.
 - early_stopping_rounds: 지정한 횟수동안 오류가 개선되지 않으면 더 이상 학습은 진행하지 않는다.
 
-#### 부스팅(Boosting) - LightGBM(Light Gradient Boosting Machine)
+#### 4. 부스팅(Boosting) - LightGBM(Light Gradient Boosting Machine)
 **LGBMClassifier(n_estimators, learning_rate, subsmaple, eval_set)**
 - n_estimators: default: 100
 
 ---
-<details>
-  <summary><a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)">회귀(Regressionn)</a></summary>
-      - 데이터가 평균과 같은 일정한 값으로 돌아가려는 경향을 이용한 통계학 기법이다.<br>  
-      - 여러 개의 독립 변수와 한 개의 종속 변수 간의 상관관계를 모델링하는 기법을 통칭한다.<br>    
-      - feature와 target 데이터 기반으로 학습하여 최적의 회귀 계수(W)를 찾는 것이 회귀의 목적이다.<br>     
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)">회귀(Regressionn)</a>
+- 데이터가 평균과 같은 일정한 값으로 돌아가려는 경향을 이용한 통계학 기법이다.
+- 여러 개의 독립 변수와 한 개의 종속 변수 간의 상관관계를 모델링하는 기법을 통칭한다.   
+- feature와 target 데이터 기반으로 학습하여 최적의 회귀 계수(W)를 찾는 것이 회귀의 목적이다.
 
   ### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)#mini-batch">Mini batch</a>
 - 전체 데이터를 대상으로 한 번에 경사 하강법을 수행하는 방법은 '배치 경사 하강법'이라 한다.
@@ -247,3 +246,7 @@
 ### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)#decision-tree-regression-%ED%9A%8C%EA%B7%80-%ED%8A%B8%EB%A6%AC">Decision Tree Regression (회귀 트리)</a>
 - 결정 트리와 결정 트리 기반의 앙상블 알고리즘은 분류뿐 아니라 회귀분석도 가능하다.
 - 분류와 유사하게 분할하며, 최종 분할 후 각 분할 영역에서 실제 데이터까지의 거리들의 평균 값으로 학습 및 예측을 수행한다.
+
+<details>
+  <summary></summary>
+</details>
