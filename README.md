@@ -237,4 +237,13 @@
       - 데이터가 평균과 같은 일정한 값으로 돌아가려는 경향을 이용한 통계학 기법이다.<br>  
       - 여러 개의 독립 변수와 한 개의 종속 변수 간의 상관관계를 모델링하는 기법을 통칭한다.<br>    
       - feature와 target 데이터 기반으로 학습하여 최적의 회귀 계수(W)를 찾는 것이 회귀의 목적이다.<br>     
+
+  ### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)#mini-batch">Mini batch</a>
+- 전체 데이터를 대상으로 한 번에 경사 하강법을 수행하는 방법은 '배치 경사 하강법'이라 한다.
+- 일반적인 배치 경사 하강법은 시간이 너무 오래 걸리기 때문에, 나누어서 하는 방법이 필요하고 이를 '미니 배치 경사 하강법'이라 한다.
+- 미니 배치 경사 하강법은 미니 배치 단위로 경사 하강법을 수행하는 방법이다.
 </details>
+
+### <a href="https://github.com/SOYOUNGdev/study-machine_learning/wiki/Regression-(%ED%9A%8C%EA%B7%80)#decision-tree-regression-%ED%9A%8C%EA%B7%80-%ED%8A%B8%EB%A6%AC">Decision Tree Regression (회귀 트리)</a>
+- 결정 트리와 결정 트리 기반의 앙상블 알고리즘은 분류뿐 아니라 회귀분석도 가능하다.
+- 분류와 유사하게 분할하며, 최종 분할 후 각 분할 영역에서 실제 데이터까지의 거리들의 평균 값으로 학습 및 예측을 수행한다.
